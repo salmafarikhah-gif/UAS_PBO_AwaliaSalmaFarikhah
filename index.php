@@ -12,7 +12,6 @@ require_once 'KaryawanMagang.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Penggajian Karyawan</title>
     <style>
-        /* Gaya Modern & Minimalis */
         body { 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
             margin: 0; 
@@ -30,19 +29,13 @@ require_once 'KaryawanMagang.php';
             text-align: center; 
             color: #0f172a; 
             font-weight: 700;
-            letter-spacing: -0.5px;
             margin-bottom: 40px;
             text-transform: uppercase;
             font-size: 24px;
             border-bottom: 3px solid #3b82f6;
             padding-bottom: 10px;
-            display: inline-block;
-            left: 50%;
-            transform: translateX(-50%);
-            position: relative;
         }
 
-        /* Desain Card & Judul Kategori */
         .section-title { 
             font-size: 18px;
             font-weight: 600;
@@ -62,11 +55,10 @@ require_once 'KaryawanMagang.php';
             border-radius: 3px;
         }
 
-        /* Desain Tabel Menarik (Glassmorphism & Clean Table) */
         .table-responsive {
             background: #ffffff;
             border-radius: 12px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
             overflow: hidden;
             margin-bottom: 30px;
             border: 1px solid #e2e8f0;
@@ -95,19 +87,12 @@ require_once 'KaryawanMagang.php';
 
         tr {
             border-bottom: 1px solid #f1f5f9;
-            transition: background-color 0.2s ease;
         }
 
-        /* Efek Hover Interaktif saat Baris Ditunjuk Mouse */
         tr:hover { 
             background-color: #f8fafc; 
         }
 
-        tr:last-child {
-            border-bottom: none;
-        }
-
-        /* Badge untuk Spesifikasi Jabatan */
         .badge-info {
             background-color: #eff6ff;
             color: #1d4ed8;
@@ -119,14 +104,11 @@ require_once 'KaryawanMagang.php';
             border: 1px solid #bfdbfe;
         }
 
-        /* Highlight Nominal Gaji Bersih */
         .gaji-bersih {
             color: #15803d;
             font-weight: 700;
             font-size: 15px;
         }
-
-        .text-center { text-center }
     </style>
 </head>
 <body>
@@ -153,4 +135,32 @@ require_once 'KaryawanMagang.php';
                 $resKontrak = KaryawanKontrak::getDaftarKontrak($db);
                 while ($row = mysqli_fetch_assoc($resKontrak)) {
                     $karyawan = new KaryawanKontrak(
-                        $row['id_karyawan'], $row
+                        $row['id_karyawan'], $row['nama_karyawan'], $row['departemen'],
+                        $row['hari_kerja_masuk'], $row['gajidasar_per_hari'],
+                        $row['durasi_kontrak_bulan'], $row['agensi_penyalur']
+                    );
+                    echo "<tr>
+                            <td><strong>{$row['id_karyawan']}</strong></td>
+                            <td>{$row['nama_karyawan']}</td>
+                            <td>{$row['departemen']}</td>
+                            <td>{$row['hari_kerja_masuk']} Hari</td>
+                            <td>Rp " . number_format($row['gajidasar_per_hari'], 0, ',', '.') . "</td>
+                            <td><span class='badge-info'>" . $karyawan->tampilkanProfilKaryawan() . "</span></td>
+                            <td><span class='gaji-bersih'>Rp " . number_format($karyawan->hitungGajiBersih(), 0, ',', '.') . "</span></td>
+                          </tr>";
+                }
+                ?>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section-title">Daftar Karyawan Tetap</div>
+    <div class="table-responsive">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nama Karyawan</th>
+                    <th>Departemen</th>
+                    <th>Hari Kerja</th>
+                    <th>Gaji / Hari</th>
