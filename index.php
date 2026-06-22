@@ -134,17 +134,18 @@ require_once 'KaryawanMagang.php';
                 <?php
                 $resKontrak = KaryawanKontrak::getDaftarKontrak($db);
                 while ($row = mysqli_fetch_assoc($resKontrak)) {
+                    // Dipastikan mengambil dari kolom db: 'hariKerjaMasuk' & 'gajiDasarPerHari'
                     $karyawan = new KaryawanKontrak(
                         $row['id_karyawan'], $row['nama_karyawan'], $row['departemen'],
-                        $row['hari_kerja_masuk'], $row['gajidasar_per_hari'],
+                        $row['hariKerjaMasuk'], $row['gajiDasarPerHari'],
                         $row['durasi_kontrak_bulan'], $row['agensi_penyalur']
                     );
                     echo "<tr>
                             <td><strong>{$row['id_karyawan']}</strong></td>
                             <td>{$row['nama_karyawan']}</td>
                             <td>{$row['departemen']}</td>
-                            <td>{$row['hari_kerja_masuk']} Hari</td>
-                            <td>Rp " . number_format($row['gajidasar_per_hari'], 0, ',', '.') . "</td>
+                            <td>{$row['hariKerjaMasuk']} Hari</td>
+                            <td>Rp " . number_format($row['gajiDasarPerHari'], 0, ',', '.') . "</td>
                             <td><span class='badge-info'>" . $karyawan->tampilkanProfilKaryawan() . "</span></td>
                             <td><span class='gaji-bersih'>Rp " . number_format($karyawan->hitungGajiBersih(), 0, ',', '.') . "</span></td>
                           </tr>";
@@ -164,3 +165,72 @@ require_once 'KaryawanMagang.php';
                     <th>Departemen</th>
                     <th>Hari Kerja</th>
                     <th>Gaji / Hari</th>
+                    <th>Spesifikasi Jabatan</th>
+                    <th>Gaji Bersih</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                $resTetap = KaryawanTetap::getDaftarTetap($db);
+                while ($row = mysqli_fetch_assoc($resTetap)) {
+                    $karyawan = new KaryawanTetap(
+                        $row['id_karyawan'], $row['nama_karyawan'], $row['departemen'],
+                        $row['hariKerjaMasuk'], $row['gajiDasarPerHari'],
+                        $row['tunjangan_kesehatan'], $row['opsi_saham_id']
+                    );
+                    echo "<tr>
+                            <td><strong>{$row['id_karyawan']}</strong></td>
+                            <td>{$row['nama_karyawan']}</td>
+                            <td>{$row['departemen']}</td>
+                            <td>{$row['hariKerjaMasuk']} Hari</td>
+                            <td>Rp " . number_format($row['gajiDasarPerHari'], 0, ',', '.') . "</td>
+                            <td><span class='badge-info'>" . $karyawan->tampilkanProfilKaryawan() . "</span></td>
+                            <td><span class='gaji-bersih'>Rp " . number_format($karyawan->hitungGajiBersih(), 0, ',', '.') . "</span></td>
+                          </tr>";
+                }
+                ?>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section-title">Daftar Karyawan Magang</div>
+    <div class="table-responsive">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nama Karyawan</th>
+                    <th>Departemen</th>
+                    <th>Hari Kerja</th>
+                    <th>Gaji / Hari</th>
+                    <th>Spesifikasi Jabatan</th>
+                    <th>Gaji Bersih</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                $resMagang = KaryawanMagang::getDaftarMagang($db);
+                while ($row = mysqli_fetch_assoc($resMagang)) {
+                    $karyawan = new KaryawanMagang(
+                        $row['id_karyawan'], $row['nama_karyawan'], $row['departemen'],
+                        $row['hariKerjaMasuk'], $row['gajiDasarPerHari'],
+                        $row['uangSakuBulanan'], $row['sertifikatKampusMerdeka']
+                    );
+                    echo "<tr>
+                            <td><strong>{$row['id_karyawan']}</strong></td>
+                            <td>{$row['nama_karyawan']}</td>
+                            <td>{$row['departemen']}</td>
+                            <td>{$row['hariKerjaMasuk']} Hari</td>
+                            <td>Rp " . number_format($row['gajiDasarPerHari'], 0, ',', '.') . "</td>
+                            <td><span class='badge-info'>" . $karyawan->tampilkanProfilKaryawan() . "</span></td>
+                            <td><span class='gaji-bersih'>Rp " . number_format($karyawan->hitungGajiBersih(), 0, ',', '.') . "</span></td>
+                          </tr>";
+                }
+                ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>
