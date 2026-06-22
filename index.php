@@ -74,7 +74,6 @@ require_once 'KaryawanMagang.php';
                 <?php
                 $resTetap = KaryawanTetap::getDaftarTetap($db);
                 while ($row = mysqli_fetch_assoc($resTetap)) {
-                    // DIUBAH: Menggunakan kelas KaryawanTetap yang benar
                     $karyawan = new KaryawanTetap(
                         $row['id_karyawan'], $row['nama_karyawan'], $row['departemen'],
                         $row['hari_kerja_masuk'], $row['gaji_dasar_per_hari'],
@@ -107,7 +106,6 @@ require_once 'KaryawanMagang.php';
                 <?php
                 $resMagang = KaryawanMagang::getDaftarMagang($db);
                 while ($row = mysqli_fetch_assoc($resMagang)) {
-                    // DIUBAH: Menggunakan kelas KaryawanMagang yang benar
                     $karyawan = new KaryawanMagang(
                         $row['id_karyawan'], $row['nama_karyawan'], $row['departemen'],
                         $row['hari_kerja_masuk'], $row['gaji_dasar_per_hari'],
