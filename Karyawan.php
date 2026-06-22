@@ -5,16 +5,16 @@ abstract class Karyawan {
     protected $id_karyawan;
     protected $nama_karyawan;
     protected $departemen;
-    protected $hariKerjaMasuk;
-    protected $gajiDasarPerHari;
+    protected $hari_kerja_masuk;
+    protected $gaji_dasar_per_hari;
 
     // Constructor untuk inisialisasi properti global
     public function __construct($id, $nama, $dept, $hari, $gaji) {
         $this->id_karyawan = $id;
         $this->nama_karyawan = $nama;
         $this->departemen = $dept;
-        $this->hariKerjaMasuk = $hari;
-        $this->gajiDasarPerHari = $gaji;
+        $this->hari_kerja_masuk = $hari;
+        $this->gaji_dasar_per_hari = $gaji;
     }
 
     // Abstract method wajib tanpa body (kurung kurawal)

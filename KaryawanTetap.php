@@ -16,9 +16,9 @@ class KaryawanTetap extends Karyawan {
         return mysqli_query($db, $query);
     }
 
-    // Overriding: Gaji Bersih = (hariKerjaMasuk * gajiDasarPerHari) + tunjanganKesehatan
+    // Overriding: Gaji Bersih = (hari_kerja_masuk * gaji_dasar_per_hari) + tunjanganKesehatan
     public function hitungGajiBersih() {
-        return ($this->hariKerjaMasuk * $this->gajiDasarPerHari) + $this->tunjanganKesehatan;
+        return ($this->hari_kerja_masuk * $this->gaji_dasar_per_hari) + $this->tunjanganKesehatan;
     }
 
     public function tampilkanProfilKaryawan() {

@@ -18,7 +18,7 @@ class KaryawanMagang extends Karyawan {
 
     // Overriding: Gaji Bersih = (hariKerjaMasuk * gajiDasarPerHari) * 0.80
     public function hitungGajiBersih() {
-        return ($this->hariKerjaMasuk * $this->gajiDasarPerHari) * 0.80;
+        return ($this->hari_kerja_masuk * $this->gaji_dasar_per_hari) * 0.80;
     }
 
     public function tampilkanProfilKaryawan() {
