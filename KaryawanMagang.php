@@ -2,7 +2,6 @@
 require_once 'Karyawan.php';
 
 class KaryawanMagang extends Karyawan {
-    // Properti tambahan spesifik karyawan magang
     private $uangSakuBulanan;
     private $sertifikatKampusMerdeka;
 
@@ -12,12 +11,17 @@ class KaryawanMagang extends Karyawan {
         $this->sertifikatKampusMerdeka = $sertifikat;
     }
 
-    // Fungsi internal untuk mengambil data spesifik magang dari database
     public static function getDaftarMagang($db) {
         $query = "SELECT * FROM tabel_karyawan WHERE jenis_karyawan = 'Magang'";
         return mysqli_query($db, $query);
     }
 
-    public function hitungGajiBersih() { return 0; }
-    public function tampilkanProfilKaryawan() { return ""; }
+    // Overriding: Gaji Bersih = (hariKerjaMasuk * gajiDasarPerHari) * 0.80
+    public function hitungGajiBersih() {
+        return ($this->hariKerjaMasuk * $this->gajiDasarPerHari) * 0.80;
+    }
+
+    public function tampilkanProfilKaryawan() {
+        return "Uang Saku: Rp" . number_format($this->uangSakuBulanan, 0, ',', '.') . ", Sertifikat: " . $this->sertifikatKampusMerdeka;
+    }
 }

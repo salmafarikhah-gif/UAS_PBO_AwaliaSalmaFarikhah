@@ -2,7 +2,6 @@
 require_once 'Karyawan.php';
 
 class KaryawanTetap extends Karyawan {
-    // Properti tambahan spesifik karyawan tetap
     private $tunjanganKesehatan;
     private $opsiSahamId;
 
@@ -12,12 +11,17 @@ class KaryawanTetap extends Karyawan {
         $this->opsiSahamId = $sahamId;
     }
 
-    // Fungsi internal untuk mengambil data spesifik tetap dari database
     public static function getDaftarTetap($db) {
         $query = "SELECT * FROM tabel_karyawan WHERE jenis_karyawan = 'Tetap'";
         return mysqli_query($db, $query);
     }
 
-    public function hitungGajiBersih() { return 0; }
-    public function tampilkanProfilKaryawan() { return ""; }
+    // Overriding: Gaji Bersih = (hariKerjaMasuk * gajiDasarPerHari) + tunjanganKesehatan
+    public function hitungGajiBersih() {
+        return ($this->hariKerjaMasuk * $this->gajiDasarPerHari) + $this->tunjanganKesehatan;
+    }
+
+    public function tampilkanProfilKaryawan() {
+        return "Tunjangan: Rp" . number_format($this->tunjanganKesehatan, 0, ',', '.') . ", Saham ID: " . $this->opsiSahamId;
+    }
 }
